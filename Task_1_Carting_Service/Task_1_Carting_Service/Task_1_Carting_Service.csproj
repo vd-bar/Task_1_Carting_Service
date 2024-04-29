@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Task_1_Carting_Service</RootNamespace>
     <AssemblyName>Task_1_Carting_Service</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NLayerBll\NLayerBll.csproj">
+      <Project>{7E3C2FC3-A42C-41E1-8326-AC16F01356B5}</Project>
+      <Name>NLayerBll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NLayerDAL\NLayerDAL.csproj">
+      <Project>{E2C3704D-52F0-4C58-B45C-707ED5C284CD}</Project>
+      <Name>NLayerDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
