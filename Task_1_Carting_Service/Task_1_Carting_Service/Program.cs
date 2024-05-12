@@ -13,15 +13,15 @@ namespace Task_1_Carting_Service
             CartService<Cart> cartService = new CartService<Cart>(new CartRepository());
             var resultGetAllCart=cartService.GetAll();
            
-            var resultAddCart = cartService.Add(new CartInfo
-            {
-                Image = "link",
-                Name = "Name",
-                Price = 1,
-                Quantity = 2
-            });
+            //var resultAddCart = cartService.Add(new CartInfo
+            //{
+            //    Image = "link",
+            //    Name = "Name",
+            //    Price = 1,
+            //    Quantity = 2
+            //});
             
-            var resultDeleteCart = cartService.Delete(2);
+            //var resultDeleteCart = cartService.Delete(2);
            
             resultGetAllCart = cartService.GetAll();
             Console.WriteLine();

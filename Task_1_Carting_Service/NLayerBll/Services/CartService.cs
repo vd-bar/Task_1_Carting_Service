@@ -4,7 +4,6 @@ using AutoMapper;
 using Common.Result;
 using NLayerBll.Interfaces;
 using NLayerBll.ModelInfo;
-using NLayerDAL.DTO;
 using NLayerDAL.Interfaces;
 
 namespace NLayerBll.Services
@@ -17,7 +16,7 @@ namespace NLayerBll.Services
 
         public CartService(IRepository<T> carRepository)
         {
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Cart, CartInfo>()).CreateMapper();
+            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, CartInfo>()).CreateMapper();
             _cartRepository = carRepository;
         }
 
