@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Common.Result;
 
 namespace NLayerDAL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
-        void Add(T id);
-        void Delete(int id);
+        ResultInfo<IEnumerable<T>> GetAll();
+        ResultInfo Add(T id);
+        ResultInfo Delete(int id);
         //T Get(int id);
         //IEnumerable<T> Find(Func<T, Boolean> predicate);
         //void Create(T item);

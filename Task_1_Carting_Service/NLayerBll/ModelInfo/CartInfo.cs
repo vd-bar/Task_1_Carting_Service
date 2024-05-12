@@ -1,6 +1,6 @@
-﻿namespace NLayerDAL.Entities
+﻿namespace NLayerBll.ModelInfo
 {
-    public class Cart
+    public class CartInfo
     {
         public int Id { get; set; }
         public string Name { get; set; }

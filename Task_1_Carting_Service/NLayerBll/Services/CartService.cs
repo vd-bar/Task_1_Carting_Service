@@ -1,38 +1,73 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using NLayerBll.DTO;
+using Common.Result;
 using NLayerBll.Interfaces;
-using NLayerDAL.Entities;
+using NLayerBll.ModelInfo;
+using NLayerDAL.DTO;
 using NLayerDAL.Interfaces;
-using NLayerDAL.Repositories;
 
 namespace NLayerBll.Services
 {
-    public class CartService : ICartService
+    public class CartService<T> : ICartService where T : class
     {
-        private IRepository<Cart> _cartRepository;
-        private IMapper _mapper;
-        public CartService(CartRepository carRepository)
+        private readonly IRepository<T> _cartRepository;
+        private readonly IMapper _mapper;
+        private const string ObjectInvalidMessage = "The object CartInfo isn't valid.";
+
+        public CartService(IRepository<T> carRepository)
         {
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<CartDto, Cart>()).CreateMapper();
+            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Cart, CartInfo>()).CreateMapper();
             _cartRepository = carRepository;
         }
-        public void Add(CartDto cartDto)
-        {
 
-            _cartRepository.Add(_mapper.Map<Cart>(cartDto));
+        public ResultInfo Add(CartInfo cart)
+        {
+            var resultInfo = new ResultInfo();
+            if (string.IsNullOrEmpty(cart.Name))
+            {
+                resultInfo.Success = false;
+                resultInfo.Message = $"{ObjectInvalidMessage} The field Name does not has a value";
+                return resultInfo;
+            }
+
+            if (cart.Price != null)
+            {
+                return _cartRepository.Add(_mapper.Map<T>(cart));
+            }
+
+            resultInfo.Success = false;
+            resultInfo.Message = $"{ObjectInvalidMessage} The field Price does not has a value";
+            return resultInfo;
         }
 
-        public void Delete(int id)
+        public ResultInfo Delete(int id)
         {
-            _cartRepository.Delete(id);
+            return _cartRepository.Delete(id);
         }
 
-        public IEnumerable<CartDto> GetAll()
+        public ResultInfo<IEnumerable<CartInfo>> GetAll()
         {
-            var result = _cartRepository.GetAll().ToList();
-            return result.Any() ? _mapper.Map<IEnumerable<Cart>, IEnumerable<CartDto>>(result) : null;
+            var resultInfo = new ResultInfo<IEnumerable<CartInfo>>();
+
+
+            var resultGetCartCollection = _cartRepository.GetAll();
+            if (!resultGetCartCollection.Success)
+            {
+                return new ResultInfo<IEnumerable<CartInfo>>
+                {
+                    Success = false,
+                    Message = resultGetCartCollection.Message
+                };
+            }
+
+            return new ResultInfo<IEnumerable<CartInfo>>
+            {
+                Success = true,
+                Value = resultGetCartCollection.Value.Any()
+                    ? _mapper.Map<IEnumerable<T>, IEnumerable<CartInfo>>(resultGetCartCollection.Value)
+                    : null
+            };
         }
     }
 }

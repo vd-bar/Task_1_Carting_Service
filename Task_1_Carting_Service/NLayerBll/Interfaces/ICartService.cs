@@ -1,12 +1,13 @@
-﻿using NLayerBll.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Common.Result;
+using NLayerBll.ModelInfo;
 
 namespace NLayerBll.Interfaces
 {
     public interface ICartService
     {
-        IEnumerable<CartDto> GetAll();
-        void Add(CartDto id);
-        void Delete(int id);
+        ResultInfo<IEnumerable<CartInfo>> GetAll();
+        ResultInfo Add(CartInfo id);
+        ResultInfo Delete(int id);
     }
 }

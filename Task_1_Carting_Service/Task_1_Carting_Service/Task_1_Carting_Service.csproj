@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{667C35E8-05CA-47F4-BC9C-424F4AF521FB}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NLayerBll\NLayerBll.csproj">
       <Project>{7E3C2FC3-A42C-41E1-8326-AC16F01356B5}</Project>
       <Name>NLayerBll</Name>
